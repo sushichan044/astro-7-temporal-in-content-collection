@@ -1,8 +1,8 @@
 diff --git a/dist/content/runtime.js b/dist/content/runtime.js
-index d931e096a01e4ed88b6200ee705d3c93eb4bf185..dd476ed66ae7a2514eb6415401cfe9bfe958b6be 100644
+index d931e096a01e4ed88b6200ee705d3c93eb4bf185..136a2a3c5efeee034ccaad54eadb7cf782c05d2d 100644
 --- a/dist/content/runtime.js
 +++ b/dist/content/runtime.js
-@@ -356,8 +356,24 @@ async function updateImageReferencesInBody(html, fileName) {
+@@ -356,8 +356,27 @@ async function updateImageReferencesInBody(html, fileName) {
      }).filter(([, value]) => value != null).map(([key, value]) => value === "" ? `${key}=""` : `${key}="${escape(String(value))}"`).join(" ");
    });
  }
@@ -14,6 +14,9 @@ index d931e096a01e4ed88b6200ee705d3c93eb4bf185..dd476ed66ae7a2514eb6415401cfe9bf
 +function cloneContentData(value) {
 +  const data = Object.create(null)
 +  for (const [key, val] of Object.entries(value)) {
++    // PATCHED:
++    // Temporal is not compatible with structuredClone yet.
++    // see: https://github.com/whatwg/html/pull/6284
 +    if (isTemporal(val)) {
 +      data[key] = val;
 +    } else {

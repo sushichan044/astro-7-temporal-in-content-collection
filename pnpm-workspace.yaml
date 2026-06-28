@@ -2,6 +2,7 @@ allowBuilds:
   esbuild: true
   sharp: true
 catalog:
+  "@types/node": ^26.0.1
   vite: npm:@voidzero-dev/vite-plus-core@latest
   vitest: 4.1.9
   vite-plus: latest

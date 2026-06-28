@@ -1,5 +1,11 @@
 ---
+import "temporal-polyfill-lite/global"; // Required to query collections using Temporal.
 
+import { getCollection } from "astro:content";
+import { inspect } from "node:util"
+
+const data = await getCollection("temporal");
+const temporalLike = inspect(data?.at(0)?.data.createdAt)
 ---
 
 <html lang="en">
@@ -13,5 +19,9 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<h2>Data</h2>
+		<pre>{JSON.stringify(data, null, 2)}</pre>
+		<h2>typeof createdAt (should be "Instant [Temporal.Instant] {}")</h2>
+		<pre>{temporalLike}</pre>
 	</body>
 </html>
